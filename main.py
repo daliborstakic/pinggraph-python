@@ -1,18 +1,15 @@
-import time
 from pythonping import ping
+from itertools import count
+from matplotlib import pyplot
+from matplotlib.animation import FuncAnimation
 
 hostname = '192.168.1.1'
 
+x_values = []
+y_values = []
 
-def main():
-    while True:
-        response_list = ping(hostname, verbose=True)
-
-        for response in response_list:
-            print(response.time_elapsed_ms)
-
-        time.sleep(1)
+index = count()
 
 
-if __name__ == '__main__':
-    main()
+def ping_host():
+    response_list = ping(hostname)
