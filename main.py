@@ -5,10 +5,15 @@ from matplotlib.animation import FuncAnimation
 
 hostname = '192.168.1.1'
 
+plt.style.use('dark_background')
+
 x_values = []
 y_values = []
 
 index = count()
+
+fig = plt.gcf()
+fig.canvas.set_window_title('Ping Tester')
 
 
 def ping_host():
@@ -21,14 +26,15 @@ def animate(i):
     y_values.append(ping_host())
 
     plt.cla()
-    plt.plot(x_values, y_values)
+    plt.plot(x_values, y_values, 'g', label='Ping (ms)')
+
+    plt.xlabel('Time (s)')
+    plt.ylabel('Ping (ms)')
+
+    plt.legend()
 
 
-ani = FuncAnimation(plt.gcf(), animate, interval=1000)
+ani = FuncAnimation(fig, animate, interval=ping_host())
 
 plt.tight_layout()
-
-plt.xlabel('Time (s)')
-plt.ylabel('Ping (ms)')
-
 plt.show()
